@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ACFloatingTextField.h"
 
 @interface ViewController : UIViewController
+
+@property (strong, nonatomic) UIWindow *window;
 
 
 @end

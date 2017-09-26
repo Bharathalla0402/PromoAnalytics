@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="31" id="KGk-i7-Jjw" customClass="Customcell1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Index" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nml-YO-CmV">
+                        <rect key="frame" x="59" y="15" width="213" height="30"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Map.png" translatesAutoresizingMaskIntoConstraints="NO" id="kw8-mr-TCR">
+                        <rect key="frame" x="15" y="15" width="30" height="30"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="PUp-cR-Lfs"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sidebar_arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="sDZ-2M-1ey">
+                        <rect key="frame" x="292" y="21" width="20" height="20"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="Lmz-Pq-fcA"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="nml-YO-CmV" firstAttribute="leading" secondItem="kw8-mr-TCR" secondAttribute="trailing" constant="14" id="6UI-pO-ydf"/>
+                    <constraint firstItem="kw8-mr-TCR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HZ5-wm-JFq"/>
+                    <constraint firstItem="kw8-mr-TCR" firstAttribute="bottom" secondItem="nml-YO-CmV" secondAttribute="bottom" id="Lmi-hJ-u9j"/>
+                    <constraint firstItem="kw8-mr-TCR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="Mhp-Dn-YBf"/>
+                    <constraint firstItem="sDZ-2M-1ey" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="TYB-zR-HX5"/>
+                    <constraint firstItem="sDZ-2M-1ey" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="13" id="Ua9-8k-0jp"/>
+                    <constraint firstItem="sDZ-2M-1ey" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VWe-Mt-04s"/>
+                    <constraint firstItem="kw8-mr-TCR" firstAttribute="top" secondItem="nml-YO-CmV" secondAttribute="top" id="YNx-EQ-kNN"/>
+                    <constraint firstItem="sDZ-2M-1ey" firstAttribute="leading" secondItem="nml-YO-CmV" secondAttribute="trailing" constant="20" id="dlM-r8-CaX"/>
+                    <constraint firstItem="kw8-mr-TCR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="tIb-0M-ZIy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="338" y="305.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Map.png" width="1024" height="1024"/>
+        <image name="sidebar_arrow.png" width="1024" height="1024"/>
+    </resources>
+</document>
