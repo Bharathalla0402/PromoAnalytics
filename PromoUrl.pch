@@ -13,7 +13,9 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 
-#define BaseUrl @"http://think360.in/promo/api/index.php/12345/"
+//#define BaseUrl @"http://think360.in/promo/api/index.php/12345/"
+
+#define BaseUrl @"http://thepromoapp.io/api/index.php/12345/"
 
 
 

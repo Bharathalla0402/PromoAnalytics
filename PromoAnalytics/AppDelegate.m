@@ -117,7 +117,6 @@ static NSString * const kClientID =@"";
         SWRevealViewController *revealController = [[SWRevealViewController alloc]initWithRearViewController:smVC frontViewController:nav];
         self.window.rootViewController=revealController;
     }
-   
 
     return YES;
 }
@@ -210,7 +209,7 @@ didSignInForUser:(GIDGoogleUser *)user
 didDisconnectWithUser:(GIDGoogleUser *)user
      withError:(NSError *)error {
     // Perform any operations when the user disconnects from app here.
-    // ...
+    //
 }
 
 @end

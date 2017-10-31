@@ -663,8 +663,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
                 {
                     [DejalBezelActivityView removeView];
                     [AlertController showMessage:@"Please check your mobile data/WiFi Connection" withTitle:@"NetWork Error!"];
-                    
-                    
                 }
                 if ([error.localizedDescription isEqualToString:@"The request timed out."])
                 {
@@ -708,7 +706,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
     }];
     
     [dataTask resume];
-    
 }
 
 
@@ -748,7 +745,7 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
     [footerview addSubview:fogotpassLbl];
     
     
-    forgotpassNmVw=[[UIView alloc]initWithFrame:CGRectMake(20, fogotpassLbl.frame.size.height+fogotpassLbl.frame.origin.y+5, loginView.frame.size.width-40, 40)];
+    forgotpassNmVw=[[UIView alloc]initWithFrame:CGRectMake(20, fogotpassLbl.frame.size.height+fogotpassLbl.frame.origin.y+5, footerview.frame.size.width-40, 40)];
     forgotpassNmVw.backgroundColor = [UIColor clearColor];
     [[forgotpassNmVw layer] setBorderWidth:2.0f];
     [[forgotpassNmVw layer] setBorderColor:[UIColor colorWithRed:217/255.0f green:217/255.0f blue:217/255.0f alpha:1.0f].CGColor];
@@ -830,7 +827,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
                            [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad3)],
                            nil];
     [numberToolbar sizeToFit];
-    
     forgotPasswordMobile.inputAccessoryView = numberToolbar;
 }
 
@@ -978,8 +974,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
                 {
                     [DejalBezelActivityView removeView];
                     [AlertController showMessage:@"Please check your mobile data/WiFi Connection" withTitle:@"NetWork Error!"];
-                    
-                    
                 }
                 if ([error.localizedDescription isEqualToString:@"The request timed out."])
                 {
@@ -1055,7 +1049,7 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
     [footerview addSubview:fogotpassLbl];
     
     
-    forgotpassNmVw=[[UIView alloc]initWithFrame:CGRectMake(20, fogotpassLbl.frame.size.height+fogotpassLbl.frame.origin.y+5, loginView.frame.size.width-40, 40)];
+    forgotpassNmVw=[[UIView alloc]initWithFrame:CGRectMake(20, fogotpassLbl.frame.size.height+fogotpassLbl.frame.origin.y+5, footerview.frame.size.width-40, 40)];
     forgotpassNmVw.backgroundColor = [UIColor clearColor];
     [[forgotpassNmVw layer] setBorderWidth:2.0f];
     [[forgotpassNmVw layer] setBorderColor:[UIColor colorWithRed:217/255.0f green:217/255.0f blue:217/255.0f alpha:1.0f].CGColor];
@@ -1171,7 +1165,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
 
 -(void)updateUserProfileMethod
 {
-
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"please wait..."];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@edit_profile/",BaseUrl]]];
@@ -1244,7 +1237,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
     }];
     
     [dataTask resume];
-    
 }
 
 
@@ -1321,7 +1313,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
                     //                [AlertController showMessage:@"Your internet connection is too low please try again" withTitle:@"NetWork Error!"];
                     //          NSLog(@"%@",error.localizedDescription);
                 }
-                
             }
             else{
                 
@@ -1373,17 +1364,12 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
                     [AlertController showMessage:@"User not Register with PromoAnalytics Please Register." withTitle:@"Promo Analytics"];
                     
                 }
-                
-                
-                
-                
             }
         }];
         
     }];
     
     [dataTask resume];
-    
 }
 
 
@@ -1435,7 +1421,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
         }
         
     }];
-    
 }
 
 -(void)socialLoginMethod
@@ -1527,7 +1512,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
     }];
     
     [dataTask resume];
-
 }
 
 
@@ -1541,7 +1525,6 @@ NSURLSessionDelegate,GIDSignInUIDelegate,GIDSignInDelegate>
     [GIDSignIn sharedInstance].delegate=self;
     [GIDSignIn sharedInstance].uiDelegate=self;
     [[GIDSignIn sharedInstance] signIn];
-    
 }
 
 
@@ -1602,11 +1585,8 @@ didSignInForUser:(GIDGoogleUser *)user
             srvc.emailNameStr= user.profile.email;
             
             [[GIDSignIn sharedInstance] signOut];
-            
         }
-        
     }
-    
 }
 
 - (void)signIn:(GIDSignIn *)signIn
@@ -1631,8 +1611,8 @@ presentViewController:(UIViewController *)viewController
 
 // Dismiss the "Sign in with Google" view
 - (void)signIn:(GIDSignIn *)signIn
-dismissViewController:(UIViewController *)viewController {
-    
+dismissViewController:(UIViewController *)viewController
+{
      [DejalBezelActivityView removeView];
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -1646,7 +1626,6 @@ dismissViewController:(UIViewController *)viewController {
 
 -(void)registarationViewMethod
 {
-    
    registerView=[[UIScrollView alloc]initWithFrame:CGRectMake(10,loginRegSegment.frame.origin.y+45, self.view.frame.size.width-20, 720)];
     //User name Fields
     registerView.backgroundColor = [UIColor clearColor];
@@ -1684,7 +1663,6 @@ dismissViewController:(UIViewController *)viewController {
     userNameLblReg.textColor = [UIColor darkGrayColor];
     userNameLblReg.textAlignment = NSTextAlignmentLeft;
     [registerView addSubview:userNameLblReg];
-    
     
     
     //gender fields
@@ -1729,9 +1707,6 @@ dismissViewController:(UIViewController *)viewController {
     [femalebutt addTarget:self action:@selector(FemaleButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     femalebutt.backgroundColor=[UIColor clearColor];
     [registerView addSubview:femalebutt];
-    
-    
-    
     
     
     
@@ -1823,7 +1798,7 @@ dismissViewController:(UIViewController *)viewController {
     [registerView addSubview:phoneViewTfVW];
     
     
-   phnNumImage=[[UIImageView alloc]initWithFrame:CGRectMake(5, 10,20,20)];
+    phnNumImage=[[UIImageView alloc]initWithFrame:CGRectMake(5, 10,20,20)];
     phnNumImage.image=[UIImage imageNamed:@"call-2.png"];
     [phoneViewTfVW addSubview: phnNumImage];
     
@@ -1922,7 +1897,7 @@ dismissViewController:(UIViewController *)viewController {
     acceptCondBtn.frame = CGRectMake(10, reEnterPWTfVW.frame.origin.y+50, 30, 30);
     [acceptCondBtn setImage:[UIImage imageNamed:@"checkbox"] forState:UIControlStateNormal];
     [acceptCondBtn addTarget:self action:@selector(termsandCondtnBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-   [acceptCondBtn setSelected:YES];
+    [acceptCondBtn setSelected:YES];
     [registerView addSubview:acceptCondBtn];
     
     
@@ -1991,7 +1966,6 @@ dismissViewController:(UIViewController *)viewController {
     [googlePlusBtnregistrtn setImage:[UIImage imageNamed:@"google90"] forState:UIControlStateNormal];
     [googlePlusBtnregistrtn addTarget:self action:@selector(googleSignInRegistartionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [registerView addSubview:googlePlusBtnregistrtn];
-    
 }
 
 
@@ -2112,9 +2086,9 @@ dismissViewController:(UIViewController *)viewController {
         [sender setSelected:NO];
         
         termsCondString=@"1";
-        
-        
-    } else {
+    }
+    else
+    {
         [sender setImage:[UIImage imageNamed:@"checkbox"] forState:UIControlStateSelected];
         [sender setSelected:YES];
         
@@ -2176,7 +2150,8 @@ dismissViewController:(UIViewController *)viewController {
     {
         [AlertController showMessage:message withTitle:@"Promo Analytics"];
         
-    }else{
+    }
+    else{
         
         [self simpleRegistarationAPI];
         
@@ -2273,8 +2248,6 @@ dismissViewController:(UIViewController *)viewController {
     }];
     
     [dataTask resume];
-    
-    
 }
 
 
@@ -2340,9 +2313,9 @@ dismissViewController:(UIViewController *)viewController {
                              [DejalBezelActivityView removeView];
                              
                            
+
                              
-                             
-                            SocialRegisterVC* srvc=[self.storyboard instantiateViewControllerWithIdentifier:@"SocialRegisterVC"];
+                             SocialRegisterVC* srvc=[self.storyboard instantiateViewControllerWithIdentifier:@"SocialRegisterVC"];
                              
                              [self.navigationController pushViewController:srvc animated:YES];
                              
@@ -2350,9 +2323,6 @@ dismissViewController:(UIViewController *)viewController {
                              
                              srvc.emailNameStr=[result valueForKey:@"email"];
                             
-                             
-                             
-                             
                          }
                      }];
                     
@@ -2375,7 +2345,6 @@ dismissViewController:(UIViewController *)viewController {
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"please wait..."];
     
-
     [firstNameTFReg resignFirstResponder];
     [phoneNumTFReg resignFirstResponder];
     [emailTFRegister resignFirstResponder];
@@ -2516,15 +2485,14 @@ dismissViewController:(UIViewController *)viewController {
     }
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [textField resignFirstResponder];
     return YES;
 }
 
 -(void)animateTextField:(UITextField*)textField up:(BOOL)up
 {
-    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
     if (textField==emailTFRegister)
@@ -2600,7 +2568,6 @@ dismissViewController:(UIViewController *)viewController {
         self.view.frame = CGRectOffset(self.view.frame, 0, movement);
         [UIView commitAnimations];
     }
-        
     }
 }
 

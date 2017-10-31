@@ -110,6 +110,7 @@
 		D95DA1681F0394BE00280E34 /* empty_coupon.png in Resources */ = {isa = PBXBuildFile; fileRef = D95DA1671F0394BE00280E34 /* empty_coupon.png */; };
 		D9B530531F026A4900813DDB /* woods-marker-2.png in Resources */ = {isa = PBXBuildFile; fileRef = D9B530521F026A4900813DDB /* woods-marker-2.png */; };
 		D9CF44151F027D7300832034 /* placeholder-3.png in Resources */ = {isa = PBXBuildFile; fileRef = D9CF44141F027D7300832034 /* placeholder-3.png */; };
+		D9F899601F7A691400A878B2 /* CouponsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F8995F1F7A691400A878B2 /* CouponsListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -269,6 +270,8 @@
 		D95DA1671F0394BE00280E34 /* empty_coupon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = empty_coupon.png; path = ../empty_coupon.png; sourceTree = "<group>"; };
 		D9B530521F026A4900813DDB /* woods-marker-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "woods-marker-2.png"; path = "../woods-marker-2.png"; sourceTree = "<group>"; };
 		D9CF44141F027D7300832034 /* placeholder-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder-3.png"; sourceTree = "<group>"; };
+		D9F8995E1F7A691400A878B2 /* CouponsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponsListViewController.h; sourceTree = "<group>"; };
+		D9F8995F1F7A691400A878B2 /* CouponsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponsListViewController.m; sourceTree = "<group>"; };
 		FE6E7103B82737879019FC9F /* libPods-PromoAnalytics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PromoAnalytics.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -320,6 +323,8 @@
 			children = (
 				B21949621E7C0F6D009470DA /* MapViewController.h */,
 				B21949631E7C0F6D009470DA /* MapViewController.m */,
+				D9F8995E1F7A691400A878B2 /* CouponsListViewController.h */,
+				D9F8995F1F7A691400A878B2 /* CouponsListViewController.m */,
 			);
 			name = "Map VC";
 			path = ..;
@@ -784,6 +789,7 @@
 			files = (
 				B2A4C8F71E826CC40059EA16 /* UIImage+GIF.m in Sources */,
 				B21949671E7C0F7E009470DA /* ListViewController.m in Sources */,
+				D9F899601F7A691400A878B2 /* CouponsListViewController.m in Sources */,
 				B2A1A8D31E8E5AC500EBFF98 /* ForgotPassWordVC.m in Sources */,
 				B219496A1E7C0F97009470DA /* SavedCouponVC.m in Sources */,
 				B23F64CC1E7A5BFB00344804 /* ViewController.m in Sources */,

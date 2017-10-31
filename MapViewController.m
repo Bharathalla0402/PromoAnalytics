@@ -23,6 +23,7 @@
 #import "SWRevealViewController.h"
 #import "ListViewController.h"
 #import "CouponDetailVC.h"
+#import "CouponsListViewController.h"
 
 
 
@@ -111,6 +112,8 @@ static NSString * const KMapPlacesApiKey = @"AIzaSyA9NV07HEkJtwVymm-r6hQupJqXt8M
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     
     NSTimeZone *timeZone = [NSTimeZone localTimeZone];
     tzName = [timeZone name];
@@ -913,13 +916,39 @@ static NSString * const KMapPlacesApiKey = @"AIzaSyA9NV07HEkJtwVymm-r6hQupJqXt8M
                      placeholderImage:[UIImage imageNamed:@"placeholder-3.png"] options:SDWebImageRefreshCached];
         
         
-        NSURL *url = [NSURL URLWithString:imageUrl];
+        NSURL *url = [NSURL URLWithString:imageUrl2];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [[UIImage alloc] initWithData:data];
         
+        UIView *Mainview = [[UIView alloc] initWithFrame:CGRectMake(0,0,50,60)];
+        Mainview.backgroundColor=[UIColor clearColor];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,10,50,50)];
+        view.layer.cornerRadius = 4.0;
+        view.layer.borderWidth = 1.0;
+        view.layer.borderColor = [UIColor colorWithRed:244.0/255.0f green:62.0/255.0f blue:51.0/255.0f alpha:1.0].CGColor;
+        UIImageView *pinImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 40, 40)];
+        pinImageView.image = img;
+        pinImageView.contentMode=UIViewContentModeScaleAspectFit;
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(28, 0, 20, 20)];
+        label.font=[UIFont systemFontOfSize:12];
+        label.layer.cornerRadius = 10.0;
+        label.layer.masksToBounds = YES;
+        label.textAlignment=NSTextAlignmentCenter;
+        label.textColor=[UIColor whiteColor];
+        label.backgroundColor= [UIColor colorWithRed:244.0/255.0f green:62.0/255.0f blue:51.0/255.0f alpha:1.0];
+        label.text = [[_mapResncArray objectAtIndex:j] objectForKey:@"store_count"];
+        [view addSubview:pinImageView];
+        [Mainview addSubview:view];
+        [Mainview addSubview:label];
+        //i.e. customize view to get what y
+        
+        
        // categoryMarkers.icon = imageView.image;
         
-        categoryMarkers.icon = img;
+        UIImage *markerIcon = [self imageFromView:Mainview];
+        categoryMarkers.icon = markerIcon;
+        
+       // categoryMarkers.icon = img;
         
         categoryMarkers.map = _mapView;
         
@@ -935,7 +964,18 @@ static NSString * const KMapPlacesApiKey = @"AIzaSyA9NV07HEkJtwVymm-r6hQupJqXt8M
     }
 }
 
-
+- (UIImage *)imageFromView:(UIView *) view
+{
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, [[UIScreen mainScreen] scale]);
+    } else {
+        UIGraphicsBeginImageContext(view.frame.size);
+    }
+    [view.layer renderInContext: UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
@@ -1046,193 +1086,247 @@ didFinishDownloadingToURL:(NSURL *)location
 }
     
 
-- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker
-{
-    NSDictionary *dic = marker.userData;
-    NSLog(@"%@",dic);
-    
-    if ([dic count] == 0)
-    {
-        UIView *mainView=[[UIView alloc]init];
-        mainView.backgroundColor=[UIColor clearColor];
-        
-        UIView *HeadView=[[UIView alloc] init];
-        HeadView.backgroundColor=[UIColor whiteColor];
-        
-        
-        
-        UILabel *labelname=[[UILabel alloc] init];
-        labelname.numberOfLines=0;
-        labelname.font=[UIFont boldSystemFontOfSize:14];
-        labelname.textAlignment=NSTextAlignmentLeft;
-        labelname.text=[NSString stringWithFormat:@"%@",@"Current Location"];
-        CGRect textRect = [labelname.text boundingRectWithSize:labelname.frame.size
-                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                    attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}
-                                                       context:nil];
-        CGSize size = textRect.size;
-        CGSize descriptionSize = [labelname sizeThatFits:CGSizeMake(170,size.height)];
-        
-        
-        
-        
-        UILabel *labeladdress=[[UILabel alloc] init];
-        labeladdress.numberOfLines=0;
-        labeladdress.font=[UIFont systemFontOfSize:12];
-        labeladdress.textAlignment=NSTextAlignmentLeft;
-        labeladdress.text=[NSString stringWithFormat:@"%@",currentLocationStr];
-        CGRect textRect2 = [labeladdress.text boundingRectWithSize:labeladdress.frame.size
-                                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                                        attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}
-                                                           context:nil];
-        CGSize size2 = textRect2.size;
-        CGSize descriptionSize2 = [labeladdress sizeThatFits:CGSizeMake(170,size2.height)];
-        
-        
-        
-        
-        mainView.frame = CGRectMake(0,0, 280, descriptionSize.height+descriptionSize2.height+47);
-        HeadView.frame = CGRectMake(5,5, 270, descriptionSize.height+descriptionSize2.height+30);
-        [mainView addSubview:HeadView];
-        
-        UIImageView *logoimage=[[UIImageView alloc] initWithFrame:CGRectMake(5, HeadView.frame.size.height/2-25, 50, 50)];
-        NSString *imageUrl =@"";
-        [logoimage sd_setImageWithURL:[NSURL URLWithString:imageUrl]
-                     placeholderImage:[UIImage imageNamed:@"placeholder-3.png"]];
-        logoimage.contentMode=UIViewContentModeScaleAspectFit;
-        [HeadView addSubview:logoimage];
-        
-        
-        labelname.frame = CGRectMake(60,13, descriptionSize.width, descriptionSize.height);
-        labeladdress.frame = CGRectMake(60,labelname.frame.origin.y+labelname.frame.size.height+5, descriptionSize2.width, descriptionSize2.height);
-        
-        [HeadView addSubview:labelname];
-        [HeadView addSubview:labeladdress];
-        
-        
-        UIImageView *Downimage=[[UIImageView alloc] initWithFrame:CGRectMake(HeadView.frame.size.width/2-5, HeadView.frame.size.height+HeadView.frame.origin.y-5, 20, 20)];
-        Downimage.image=[UIImage imageNamed:@"down-arrow-2.png"];
-        Downimage.contentMode=UIViewContentModeScaleAspectFit;
-        [mainView addSubview:Downimage];
-        
-        
-       return mainView;
-    }
-    else
-    {
-        UIView *mainView=[[UIView alloc]init];
-        mainView.backgroundColor=[UIColor clearColor];
-        
-        UIView *HeadView=[[UIView alloc] init];
-        HeadView.backgroundColor=[UIColor whiteColor];
-        
-        
-        
-        UILabel *labelname=[[UILabel alloc] init];
-        labelname.numberOfLines=0;
-        labelname.font=[UIFont boldSystemFontOfSize:14];
-        labelname.textAlignment=NSTextAlignmentLeft;
-        labelname.text=[NSString stringWithFormat:@"%@",[dic valueForKey:@"name"]];
-        CGRect textRect = [labelname.text boundingRectWithSize:labelname.frame.size
-                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                    attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}
-                                                       context:nil];
-        CGSize size = textRect.size;
-        CGSize descriptionSize = [labelname sizeThatFits:CGSizeMake(170,size.height)];
-        
-        
-        
-        
-        UILabel *labeladdress=[[UILabel alloc] init];
-        labeladdress.numberOfLines=0;
-        labeladdress.font=[UIFont systemFontOfSize:12];
-        labeladdress.textAlignment=NSTextAlignmentLeft;
-        labeladdress.text=[NSString stringWithFormat:@"%@",[dic valueForKey:@"address"]];
-        CGRect textRect2 = [labeladdress.text boundingRectWithSize:labeladdress.frame.size
-                                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                                        attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}
-                                                           context:nil];
-        CGSize size2 = textRect2.size;
-        CGSize descriptionSize2 = [labeladdress sizeThatFits:CGSizeMake(170,size2.height)];
-        
-        
-        
-        
-        mainView.frame = CGRectMake(0,0, 280, descriptionSize.height+descriptionSize2.height+47);
-        HeadView.frame = CGRectMake(5,5, 270, descriptionSize.height+descriptionSize2.height+30);
-        [mainView addSubview:HeadView];
-        
-        UIImageView *logoimage=[[UIImageView alloc] initWithFrame:CGRectMake(5, HeadView.frame.size.height/2-25, 50, 50)];
-        NSString *imageUrl =[dic  objectForKey:@"category_pic_main"];
-        [logoimage sd_setImageWithURL:[NSURL URLWithString:imageUrl]
-                     placeholderImage:[UIImage imageNamed:@"placeholder-3.png"]];
-        NSURL *url = [NSURL URLWithString:imageUrl];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *img = [[UIImage alloc] initWithData:data];
-        logoimage.image = img;
-        logoimage.contentMode=UIViewContentModeScaleAspectFit;
-        [HeadView addSubview:logoimage];
-        
-        
-        labelname.frame = CGRectMake(60,13, descriptionSize.width, descriptionSize.height);
-        labeladdress.frame = CGRectMake(60,labelname.frame.origin.y+labelname.frame.size.height+5, descriptionSize2.width, descriptionSize2.height);
-        
-        [HeadView addSubview:labelname];
-        [HeadView addSubview:labeladdress];
-        
-        
-        UIImageView *Downimage=[[UIImageView alloc] initWithFrame:CGRectMake(HeadView.frame.size.width/2-5, HeadView.frame.size.height+HeadView.frame.origin.y-5, 20, 20)];
-        Downimage.image=[UIImage imageNamed:@"down-arrow-2.png"];
-        Downimage.contentMode=UIViewContentModeScaleAspectFit;
-        [mainView addSubview:Downimage];
-        
-        UIImageView *Rightimage=[[UIImageView alloc] initWithFrame:CGRectMake(HeadView.frame.size.width-25, HeadView.frame.size.height/2-10, 20, 20)];
-        Rightimage.image=[UIImage imageNamed:@"right-arrow-4.png"];
-        Rightimage.contentMode=UIViewContentModeScaleAspectFit;
-        [HeadView addSubview:Rightimage];
-        
-        return mainView;
-    }
-}
-    
-    
--(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker
-{
-    ListViewController * lcv=[[ListViewController alloc]init];
-    
-    NSDictionary *dic = marker.userData;
-    
-    NSLog(@"%@",dic);
-    
-    
-    if ([dic count] == 0)
-    {
-        
-    }
-    else
-    {
-        lcv.catStrValue=@"map";
-        
-        [[NSUserDefaults standardUserDefaults]setValue:[dic objectForKey:@"category_name"] forKey:@"mapCategoryName"];
-        [[NSUserDefaults standardUserDefaults]setValue:[dic objectForKey:@"category_id"] forKey:@"mapCategoryID"];
-        [[NSUserDefaults standardUserDefaults]setValue:@"map" forKey:@"map"];
-        
-        //    ListViewController *list=[self.storyboard instantiateViewControllerWithIdentifier:@"ListViewController"];
-        //    [self.navigationController pushViewController:list animated:YES];
-        
-        CouponDetailVC * dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"CouponDetailVC"];
-        [self.navigationController pushViewController:dvc animated:YES];
-        
-        dvc.dealidString=[NSString stringWithFormat:@"%@",[dic valueForKey:@"id"]];
-        
-        // self.tabBarController.selectedIndex=1;
-    }
-}
-
+//- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker
+//{
+//    NSDictionary *dic = marker.userData;
+//    NSLog(@"%@",dic);
+//    
+//    if ([dic count] == 0)
+//    {
+//        UIView *mainView=[[UIView alloc]init];
+//        mainView.backgroundColor=[UIColor clearColor];
+//        
+//        UIView *HeadView=[[UIView alloc] init];
+//        HeadView.backgroundColor=[UIColor whiteColor];
+//        
+//        
+//        
+//        UILabel *labelname=[[UILabel alloc] init];
+//        labelname.numberOfLines=0;
+//        labelname.font=[UIFont boldSystemFontOfSize:14];
+//        labelname.textAlignment=NSTextAlignmentLeft;
+//        labelname.text=[NSString stringWithFormat:@"%@",@"Current Location"];
+//        CGRect textRect = [labelname.text boundingRectWithSize:labelname.frame.size
+//                                                       options:NSStringDrawingUsesLineFragmentOrigin
+//                                                    attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}
+//                                                       context:nil];
+//        CGSize size = textRect.size;
+//        CGSize descriptionSize = [labelname sizeThatFits:CGSizeMake(170,size.height)];
+//        
+//        
+//        
+//        
+//        UILabel *labeladdress=[[UILabel alloc] init];
+//        labeladdress.numberOfLines=0;
+//        labeladdress.font=[UIFont systemFontOfSize:12];
+//        labeladdress.textAlignment=NSTextAlignmentLeft;
+//        labeladdress.text=[NSString stringWithFormat:@"%@",currentLocationStr];
+//        CGRect textRect2 = [labeladdress.text boundingRectWithSize:labeladdress.frame.size
+//                                                           options:NSStringDrawingUsesLineFragmentOrigin
+//                                                        attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}
+//                                                           context:nil];
+//        CGSize size2 = textRect2.size;
+//        CGSize descriptionSize2 = [labeladdress sizeThatFits:CGSizeMake(170,size2.height)];
+//        
+//        
+//        
+//        
+//        mainView.frame = CGRectMake(0,0, 280, descriptionSize.height+descriptionSize2.height+47);
+//        HeadView.frame = CGRectMake(5,5, 270, descriptionSize.height+descriptionSize2.height+30);
+//        [mainView addSubview:HeadView];
+//        
+//        UIImageView *logoimage=[[UIImageView alloc] initWithFrame:CGRectMake(5, HeadView.frame.size.height/2-25, 50, 50)];
+//        NSString *imageUrl =@"";
+//        [logoimage sd_setImageWithURL:[NSURL URLWithString:imageUrl]
+//                     placeholderImage:[UIImage imageNamed:@"placeholder-3.png"]];
+//        logoimage.contentMode=UIViewContentModeScaleAspectFit;
+//        [HeadView addSubview:logoimage];
+//        
+//        
+//        labelname.frame = CGRectMake(60,13, descriptionSize.width, descriptionSize.height);
+//        labeladdress.frame = CGRectMake(60,labelname.frame.origin.y+labelname.frame.size.height+5, descriptionSize2.width, descriptionSize2.height);
+//        
+//        [HeadView addSubview:labelname];
+//        [HeadView addSubview:labeladdress];
+//        
+//        
+//        UIImageView *Downimage=[[UIImageView alloc] initWithFrame:CGRectMake(HeadView.frame.size.width/2-5, HeadView.frame.size.height+HeadView.frame.origin.y-5, 20, 20)];
+//        Downimage.image=[UIImage imageNamed:@"down-arrow-2.png"];
+//        Downimage.contentMode=UIViewContentModeScaleAspectFit;
+//        [mainView addSubview:Downimage];
+//        
+//        
+//       return mainView;
+//    }
+//    else
+//    {
+//        UIView *mainView=[[UIView alloc]init];
+//        mainView.backgroundColor=[UIColor clearColor];
+//        
+//        UIView *HeadView=[[UIView alloc] init];
+//        HeadView.backgroundColor=[UIColor whiteColor];
+//        
+//        
+//        
+//        UILabel *labelname=[[UILabel alloc] init];
+//        labelname.numberOfLines=0;
+//        labelname.font=[UIFont boldSystemFontOfSize:14];
+//        labelname.textAlignment=NSTextAlignmentLeft;
+//        labelname.text=[NSString stringWithFormat:@"%@",[dic valueForKey:@"name"]];
+//        CGRect textRect = [labelname.text boundingRectWithSize:labelname.frame.size
+//                                                       options:NSStringDrawingUsesLineFragmentOrigin
+//                                                    attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}
+//                                                       context:nil];
+//        CGSize size = textRect.size;
+//        CGSize descriptionSize = [labelname sizeThatFits:CGSizeMake(170,size.height)];
+//        
+//        
+//        
+//        
+//        UILabel *labeladdress=[[UILabel alloc] init];
+//        labeladdress.numberOfLines=0;
+//        labeladdress.font=[UIFont systemFontOfSize:12];
+//        labeladdress.textAlignment=NSTextAlignmentLeft;
+//        labeladdress.text=[NSString stringWithFormat:@"%@",[dic valueForKey:@"address"]];
+//        CGRect textRect2 = [labeladdress.text boundingRectWithSize:labeladdress.frame.size
+//                                                           options:NSStringDrawingUsesLineFragmentOrigin
+//                                                        attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}
+//                                                           context:nil];
+//        CGSize size2 = textRect2.size;
+//        CGSize descriptionSize2 = [labeladdress sizeThatFits:CGSizeMake(170,size2.height)];
+//        
+//        
+//        
+//        
+//        mainView.frame = CGRectMake(0,0, 280, descriptionSize.height+descriptionSize2.height+47);
+//        HeadView.frame = CGRectMake(5,5, 270, descriptionSize.height+descriptionSize2.height+30);
+//        [mainView addSubview:HeadView];
+//        
+//        UIImageView *logoimage=[[UIImageView alloc] initWithFrame:CGRectMake(5, HeadView.frame.size.height/2-25, 50, 50)];
+//        NSString *imageUrl =[dic  objectForKey:@"category_pic_main"];
+//        [logoimage sd_setImageWithURL:[NSURL URLWithString:imageUrl]
+//                     placeholderImage:[UIImage imageNamed:@"placeholder-3.png"]];
+//        NSURL *url = [NSURL URLWithString:imageUrl];
+//        NSData *data = [NSData dataWithContentsOfURL:url];
+//        UIImage *img = [[UIImage alloc] initWithData:data];
+//        logoimage.image = img;
+//        logoimage.contentMode=UIViewContentModeScaleAspectFit;
+//        [HeadView addSubview:logoimage];
+//        
+//        
+//        labelname.frame = CGRectMake(60,13, descriptionSize.width, descriptionSize.height);
+//        labeladdress.frame = CGRectMake(60,labelname.frame.origin.y+labelname.frame.size.height+5, descriptionSize2.width, descriptionSize2.height);
+//        
+//        [HeadView addSubview:labelname];
+//        [HeadView addSubview:labeladdress];
+//        
+//        
+//        UIImageView *Downimage=[[UIImageView alloc] initWithFrame:CGRectMake(HeadView.frame.size.width/2-5, HeadView.frame.size.height+HeadView.frame.origin.y-5, 20, 20)];
+//        Downimage.image=[UIImage imageNamed:@"down-arrow-2.png"];
+//        Downimage.contentMode=UIViewContentModeScaleAspectFit;
+//        [mainView addSubview:Downimage];
+//        
+//        UIImageView *Rightimage=[[UIImageView alloc] initWithFrame:CGRectMake(HeadView.frame.size.width-25, HeadView.frame.size.height/2-10, 20, 20)];
+//        Rightimage.image=[UIImage imageNamed:@"right-arrow-4.png"];
+//        Rightimage.contentMode=UIViewContentModeScaleAspectFit;
+//        [HeadView addSubview:Rightimage];
+//        
+//        return mainView;
+//    }
+//}
+//    
+//    
+//-(void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker
+//{
+//    ListViewController * lcv=[[ListViewController alloc]init];
+//    
+//    NSDictionary *dic = marker.userData;
+//    
+//    NSLog(@"%@",dic);
+//    
+//    
+//    if ([dic count] == 0)
+//    {
+//        
+//    }
+//    else
+//    {
+//        lcv.catStrValue=@"map";
+//        
+//        [[NSUserDefaults standardUserDefaults]setValue:[dic objectForKey:@"category_name"] forKey:@"mapCategoryName"];
+//        [[NSUserDefaults standardUserDefaults]setValue:[dic objectForKey:@"category_id"] forKey:@"mapCategoryID"];
+//        [[NSUserDefaults standardUserDefaults]setValue:@"map" forKey:@"map"];
+//        
+//        //    ListViewController *list=[self.storyboard instantiateViewControllerWithIdentifier:@"ListViewController"];
+//        //    [self.navigationController pushViewController:list animated:YES];
+//        
+//        CouponDetailVC * dvc=[self.storyboard instantiateViewControllerWithIdentifier:@"CouponDetailVC"];
+//        [self.navigationController pushViewController:dvc animated:YES];
+//        
+//        dvc.dealidString=[NSString stringWithFormat:@"%@",[dic valueForKey:@"id"]];
+//        
+//        // self.tabBarController.selectedIndex=1;
+//    }
+//}
+//
 
 -(BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
-    return 0;
+    NSDictionary *dic = marker.userData;
+    
+    CouponsListViewController *list=[self.storyboard instantiateViewControllerWithIdentifier:@"CouponsListViewController"];
+    [[NSUserDefaults standardUserDefaults]setObject:dic forKey:@"couponslist"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    [self.navigationController pushViewController:list animated:YES];
+    
+   
+    
+    
+//
+//    [DejalBezelActivityView activityViewForView:self.view withLabel:@"please wait..."];
+//    
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@deal_all_store/",BaseUrl]]];
+//    request.HTTPMethod = @"POST";
+//    NSMutableString* profile = [NSMutableString string];
+//    [profile appendString:[NSString stringWithFormat:@"latitude=%@&longitude=%@&user_id=%@&time_zone=%@&store_id=%@&page=%@",[dic objectForKey:@"latitude"],[dic objectForKey:@"longitude"],userID,tzName,[dic objectForKey:@"store_id"],@"0"]];
+//    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    request.HTTPBody  = [profile dataUsingEncoding:NSUTF8StringEncoding];
+//    NSURLSessionConfiguration *configuration =[NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+//        
+//            if(error){
+//                
+//                if ([error.localizedDescription isEqualToString:@"The Internet connection appears to be offline."])
+//                {
+//                    [DejalBezelActivityView removeView];
+//                    [AlertController showMessage:@"Please check your mobile data/WiFi Connection" withTitle:@"NetWork Error!"];
+//                    
+//                }
+//                if ([error.localizedDescription isEqualToString:@"The request timed out."])
+//                {
+//                    [DejalBezelActivityView removeView];
+//                    
+//                }
+//                
+//            }
+//            else{
+//                
+//                [DejalBezelActivityView removeView];
+//                
+//                NSDictionary*jsonResponce = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+//                
+//                NSLog(@"%@",jsonResponce);
+//                
+//            }
+//        }];
+//        
+//    }];
+//    
+//    [dataTask resume];
+    
+    return YES;
 }
 
 
